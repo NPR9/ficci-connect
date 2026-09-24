@@ -138,22 +138,27 @@
   }
 
   .back-btn {
-    background: none;
-    border: none;
-    color: var(--gold-dim);
+    background: rgba(184,145,63,0.08);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
     font-family: 'DM Sans', sans-serif;
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     cursor: pointer;
-    padding: 0;
-    margin-bottom: 32px;
-    display: flex;
+    padding: 8px 14px;
+    margin-bottom: 28px;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    letter-spacing: 0.05em;
+    gap: 8px;
+    letter-spacing: 0.08em;
+    transition: background 0.15s, border-color 0.15s;
   }
 
-  .back-btn:hover { color: var(--gold); }
+  .back-btn:hover, .back-btn:focus {
+    background: rgba(184,145,63,0.15);
+    border-color: var(--gold);
+    outline: none;
+  }
 
   .back-arrow {
     display: inline-block;
@@ -360,21 +365,29 @@
 
   .btn-secondary {
     background: none;
-    border: none;
-    color: var(--text-dim);
+    border: 1px solid #333;
+    color: var(--white);
     font-family: 'DM Sans', sans-serif;
     font-size: 12px;
+    font-weight: 400;
     cursor: pointer;
-    margin-top: 18px;
-    padding: 8px;
+    margin-top: 14px;
+    padding: 12px 20px;
     display: block;
     width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    letter-spacing: 0.06em;
+    transition: border-color 0.15s, color 0.15s;
   }
 
-  .btn-secondary:hover { color: var(--white); }
+  .btn-secondary:hover, .btn-secondary:focus {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    outline: none;
+  }
 
   /* ── ADMIN SCREEN ── */
   #screen-admin {
@@ -606,19 +619,19 @@
 const CONFIG = {
   event: "FICCI Frames 2026",
   people: {
-    niraj: {
-      id: "niraj",
-      name: "Niraj Puran Rao",
-      role: "AI Systems Architect",
-      wa: "919545050618",
-      greeting: "Good to meet you at FICCI Frames. Here to explore what we can build together."
-    },
     phil: {
       id: "phil",
       name: "Phil McKenzie",
       role: "Principal, Goldfinch",
       wa: "447535436122",
       greeting: "Good to connect at FICCI Frames. Let's find where our worlds overlap."
+    },
+    niraj: {
+      id: "niraj",
+      name: "Niraj Puran Rao",
+      role: "AI Systems Architect",
+      wa: "919545050618",
+      greeting: "Good to meet you at FICCI Frames. Here to explore what we can build together."
     }
   },
   companies: [
@@ -783,7 +796,7 @@ function renderCompany(app) {
   screen.innerHTML = `
     <div class="company-hero">
       <button class="back-btn" id="back-btn">
-        <span class="back-arrow">›</span> Back
+        <span class="back-arrow">›</span> Choose different person
       </button>
       <div class="hero-greeting">Connecting with</div>
       <div class="hero-name"><span>${p.name.split(" ")[0]}</span></div>
@@ -841,7 +854,7 @@ function renderConfirm(app) {
     <a href="${waLink}" class="btn-primary" target="_blank" rel="noopener">
       Open WhatsApp →
     </a>
-    <button class="btn-secondary" id="back-to-companies">Choose a different company</button>
+    <button class="btn-secondary" id="back-to-companies">← Wrong company? Go back</button>
   `;
 
   screen.querySelector("#back-to-companies").addEventListener("click", () => {
